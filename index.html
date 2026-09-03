@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Centro de operaciones de seguridad para empresas medianas">
+  <title>Sentinel | Centro de seguridad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">+</span><span>sentinel<span class="brand-dot">.</span></span></div>
+      <div class="workspace"><span class="status-dot"></span><span>Operaciones TI</span><span class="chevron">⌄</span></div>
+      <nav aria-label="Navegación principal">
+        <p class="nav-label">Monitorización</p>
+        <a class="nav-item active" href="#overview"><span class="nav-icon">◈</span> Resumen <span class="nav-count">3</span></a>
+        <a class="nav-item" href="#alerts"><span class="nav-icon">⌁</span> Alertas <span class="nav-count alert-count">7</span></a>
+        <a class="nav-item" href="#assets"><span class="nav-icon">▦</span> Activos</a>
+        <a class="nav-item" href="#threats"><span class="nav-icon">◌</span> Inteligencia</a>
+        <p class="nav-label">Administración</p>
+        <a class="nav-item" href="#policies"><span class="nav-icon">⊙</span> Políticas</a>
+        <a class="nav-item" href="#reports"><span class="nav-icon">▤</span> Informes</a>
+      </nav>
+      <div class="sidebar-bottom"><div class="support-card"><span class="support-icon">?</span><div><strong>¿Necesitas ayuda?</strong><small>Habla con un especialista</small></div><span>›</span></div><div class="user"><div class="avatar">ES</div><div><strong>Edmundo Santos</strong><small>Administrador</small></div><span class="more">•••</span></div></div>
+    </aside>
+    <main class="main-content" id="overview">
+      <header class="topbar"><div class="breadcrumbs">Seguridad <span>/</span> <strong>Resumen</strong></div><div class="top-actions"><span class="last-sync"><i></i> Actualizado hace 2 min</span><button class="icon-button" aria-label="Notificaciones">♧<b></b></button><button class="avatar mini">ES</button></div></header>
+      <section class="page-heading"><div><p class="eyebrow">REAL</p><h1>Buenos días, Edmundo <span>✦</span></h1><p class="lede">Aquí tienes el estado de seguridad de tu organización.</p></div><button class="primary-button" id="exportButton">⇩ <span>Descargar informe diario</span></button></section>
+      <section class="metric-grid" aria-label="Métricas de seguridad">
+        <article class="metric-card good"><div class="metric-top"><span class="metric-label">Postura de seguridad</span><span class="metric-symbol">↗</span></div><div class="metric-value">87<span>/100</span></div><div class="metric-foot"><span class="trend up">↗ 4.8%</span><span>vs. mes anterior</span><div class="sparkline green">▁▂▃▂▄▅▆▆▇</div></div></article>
+        <article class="metric-card"><div class="metric-top"><span class="metric-label">Dispositivos protegidos</span><span class="metric-symbol">⌘</span></div><div class="metric-value">142<span>/148</span></div><div class="metric-foot"><span class="trend up">↗ 2.1%</span><span>vs. mes anterior</span><div class="sparkline blue">▆▆▇▆▇▇▇▇▇</div></div></article>
+        <article class="metric-card warning"><div class="metric-top"><span class="metric-label">Alertas abiertas</span><span class="metric-symbol">△</span></div><div class="metric-value">07</div><div class="metric-foot"><span class="trend down">↘ 12.5%</span><span>vs. semana anterior</span><div class="sparkline orange">▇▇▆▆▅▅▃▃▂</div></div></article>
+        <article class="metric-card"><div class="metric-top"><span class="metric-label">Tiempo de respuesta</span><span class="metric-symbol">◷</span></div><div class="metric-value">18<span> min</span></div><div class="metric-foot"><span class="trend up">↗ 8.3%</span><span>vs. mes anterior</span><div class="sparkline violet">▇▆▆▅▅▄▃▃▂</div></div></article>
+      </section>
+      <section class="content-grid">
+        <article class="panel threat-panel" id="alerts"><div class="panel-heading"><div><h2>Centro de amenazas</h2><p>Actividad detectada en las últimas 24 horas</p></div><button class="text-button" id="viewAlerts">Ver informe de amenazas <span>→</span></button></div><div class="threat-body"><div class="donut-wrap"><div class="donut"><div><strong>24</strong><small>eventos</small></div></div><div class="donut-legend"><span><i class="dot critical"></i> Crítico <b>2</b></span><span><i class="dot high"></i> Alto <b>5</b></span><span><i class="dot medium"></i> Medio <b>11</b></span><span><i class="dot low"></i> Bajo <b>6</b></span></div></div><div class="activity-list"><div class="activity-row"><span class="activity-icon red">⌁</span><div><strong>Ransomware bloqueado</strong><small>Endpoint · FIN-WS-024</small></div><time>Hace 8 min</time></div><div class="activity-row"><span class="activity-icon amber">⚠</span><div><strong>Movimiento lateral detectado</strong><small>Red · 10.20.4.0/24</small></div><time>Hace 26 min</time></div><div class="activity-row"><span class="activity-icon teal">✓</span><div><strong>Gusano neutralizado</strong><small>Correo · 3 destinatarios</small></div><time>Hace 42 min</time></div><div class="activity-row"><span class="activity-icon blue">↗</span><div><strong>Inicio de sesión anómalo</strong><small>Identidad · VPN Madrid</small></div><time>Hace 1 h</time></div></div></div></article>
+        <article class="panel score-panel"><div class="panel-heading"><div><h2>Salud de controles</h2><p>Configuración recomendada</p></div><button class="kebab" aria-label="Más opciones">•••</button></div><div class="score-ring"><div class="ring-inner"><strong>92%</strong><small>óptimo</small></div></div><div class="control-bars"><div><span>Protección endpoint <b>98%</b></span><i><em style="width:98%"></em></i></div><div><span>Copias de seguridad <b>91%</b></span><i><em style="width:91%"></em></i></div><div><span>Identidad y acceso <b>86%</b></span><i><em class="orange-bar" style="width:86%"></em></i></div></div><button class="outline-button" id="reviewControls">Revisar controles</button></article>
+      </section>
+
+      <section class="panel ops-panel" id="assets">
+        <div class="panel-heading"><div><h2>Accesos y cumplimiento</h2><p>Asistentes de oficina, actualizaciones y red</p></div><div class="panel-tools"><span class="live-pill"><i></i> Tiempo real</span><button class="text-button section-report" data-report="operaciones">Descargar área <span>↓</span></button></div></div>
+        <div class="live-metrics">
+          <div class="mini-stat"><span>Accesos ahora</span><strong id="liveAccessTotal">18</strong><small>equipos activos</small></div>
+          <div class="mini-stat warning"><span>Parches pendientes</span><strong id="livePatchTotal">12</strong><small>requieren instalación</small></div>
+          <div class="mini-stat success"><span>Tráfico de red</span><strong id="liveNetworkTotal">1.4</strong><small>Gb/s promedio</small></div>
+        </div>
+        <div class="ops-grid">
+          <div class="feed-block"><h3>Acceso por asistente</h3><ul class="feed-list" id="assistantAccessList"></ul></div>
+          <div class="feed-block"><h3>Balance de actualizaciones</h3><ul class="feed-list" id="patchBalanceList"></ul></div>
+          <div class="feed-block"><h3>Uso de la red</h3><ul class="feed-list" id="networkUsageList"></ul></div>
+        </div>
+      </section>
+
+      <section class="panel reports-panel" id="reports">
+        <div class="panel-heading"><div><h2>Informes diarios</h2><p>Descargas separadas por área operativa</p></div><span class="report-date">08 OCT 2024 · DEMO</span></div>
+        <div class="report-grid">
+          <article class="report-card"><span class="report-icon red">⌁</span><div><h3>Amenazas e incidentes</h3><p>Alertas, severidad y respuesta de las últimas 24 horas.</p></div><button class="download-report" data-report="amenazas" aria-label="Descargar informe de amenazas">↓</button></article>
+          <article class="report-card"><span class="report-icon blue">▦</span><div><h3>Activos y actualizaciones</h3><p>Equipos protegidos, parches pendientes y cobertura.</p></div><button class="download-report" data-report="activos" aria-label="Descargar informe de activos">↓</button></article>
+          <article class="report-card"><span class="report-icon teal">⌘</span><div><h3>Accesos y red</h3><p>Ingresos de asistentes, VPN y tráfico por segmento.</p></div><button class="download-report" data-report="red" aria-label="Descargar informe de accesos y red">↓</button></article>
+        </div>
+      </section>
+
+      <section class="panel threat-control-panel" id="threatControl">
+        <div class="panel-heading"><div><h2>Amenazas y contramedidas</h2><p>Detección del riesgo y respuesta operativa recomendada</p></div><button class="text-button" id="viewDefensePlan">Ver plan de defensa <span>→</span></button></div>
+        <div class="threat-control-grid">
+          <article class="counter-card red-card">
+            <span class="counter-tag">Ransomware</span>
+            <h3>Bloqueo de archivos clave</h3>
+            <p><strong>Metodo de contrarresto:</strong> aislar el equipo, bloquear la ejecución y restaurar desde copias verificadas para recuperar la integridad crítica.</p>
+          </article>
+          <article class="counter-card amber-card">
+            <span class="counter-tag">Gusano</span>
+            <h3>Propagación lateral</h3>
+            <p><strong>Metodo de contrarresto:</strong> cortar segmentos afectados, restringir puertos y aplicar actualizaciones de seguridad en la red interna.</p>
+          </article>
+          <article class="counter-card teal-card">
+            <span class="counter-tag">Phishing</span>
+            <h3>Suplantación de credenciales</h3>
+            <p><strong>Metodo de contrarresto:</strong> revoke sesiones sospechosas, reforzar MFA y entrenar a usuarios para validar mensajes de acceso.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel file-control-panel">
+        <div class="panel-heading"><div><h2>Control de acceso a archivos confidenciales</h2><p>Denegación inmediata de archivos con alto impacto</p></div><button class="text-button" data-report="operaciones">Exportar políticas <span>↓</span></button></div>
+        <div class="file-control-wrap">
+          <div class="file-control-header">
+            <span>Archivo</span>
+            <span>Propietario</span>
+            <span>Estado</span>
+            <span>Acción</span>
+          </div>
+          <div id="confidentialFilesList" class="file-list"></div>
+        </div>
+      </section>
+
+      <section class="panel security-policy-panel" id="policies">
+        <div class="panel-heading"><div><h2>Permisos por rol y auditoría</h2><p>Control de acceso, intentos y eventos en tiempo real</p></div><button class="text-button" id="viewAuditLog">Ver auditoría <span>→</span></button></div>
+        <div class="security-policy-grid">
+          <div class="security-card">
+            <h3>Perfiles de acceso</h3>
+            <div id="rolePermissionsList" class="role-list"></div>
+          </div>
+          <div class="security-card">
+            <h3>Auditoría de intentos</h3>
+            <div id="accessAuditList" class="audit-list"></div>
+          </div>
+          <div class="security-card">
+            <h3>Registro operativo</h3>
+            <div id="securityEventList" class="event-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel soc-panel">
+        <div class="panel-heading"><div><h2>Control de acceso y SOC</h2><p>Filtros por departamento, historial y alertas a tiempo real</p></div><button class="text-button" id="viewAuditLog">Ver auditoría <span>→</span></button></div>
+        <div class="soc-layout">
+          <div class="soc-card">
+            <div class="filter-row" id="departmentFilterBar">
+              <button class="filter-chip active" data-department="Todos">Todos</button>
+              <button class="filter-chip" data-department="Finanzas">Finanzas</button>
+              <button class="filter-chip" data-department="Legal">Legal</button>
+              <button class="filter-chip" data-department="Operaciones">Operaciones</button>
+              <button class="filter-chip" data-department="RRHH">RRHH</button>
+            </div>
+            <div id="accessHistoryList" class="history-list"></div>
+          </div>
+          <div class="soc-card">
+            <h3>Alertas SOC en tiempo real</h3>
+            <ul id="socAlertList" class="soc-alert-list"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel study-panel" id="study">
+        <div class="panel-heading"><div><h2>Estudio de la amenaza</h2><p>Interpretación del tipo de amenaza y contramedida recomendada</p></div><button class="text-button" data-report="amenazas">Descargar análisis <span>↓</span></button></div>
+        <div class="study-layout">
+          <div class="study-list" id="threatStudyList"></div>
+          <div class="study-detail" id="threatStudyDetail"></div>
+        </div>
+      </section>
+
+      <section class="panel incidents-panel" id="threats"><div class="panel-heading"><div><h2>Incidentes recientes</h2><p>Priorizados por impacto y urgencia</p></div><div class="panel-tools"><button class="filter-button" id="filterButton">Todos <span>⌄</span></button><button class="icon-button small" aria-label="Actualizar">↻</button></div></div><div class="table-wrap"><table><thead><tr><th>INCIDENTE</th><th>SEVERIDAD</th><th>ACTIVO AFECTADO</th><th>DETECTADO</th><th>ESTADO</th><th></th></tr></thead><tbody id="incidentTable"><tr data-status="critical"><td><span class="incident-id">INC-2048</span><strong>Comportamiento de ransomware</strong></td><td><span class="severity critical-text"><i></i> Crítico</span></td><td>FIN-WS-024</td><td>Hace 8 min</td><td><span class="state contained">Contenido</span></td><td><button class="row-action" aria-label="Abrir incidente">→</button></td></tr><tr data-status="high"><td><span class="incident-id">INC-2047</span><strong>Credenciales expuestas</strong></td><td><span class="severity high-text"><i></i> Alto</span></td><td>Cuenta: j.santos</td><td>Hace 26 min</td><td><span class="state investigating">Investigando</span></td><td><button class="row-action" aria-label="Abrir incidente">→</button></td></tr><tr data-status="medium"><td><span class="incident-id">INC-2046</span><strong>Propagación de gusano detenida</strong></td><td><span class="severity medium-text"><i></i> Medio</span></td><td>MAIL-GW-01</td><td>Hace 42 min</td><td><span class="state resolved">Resuelto</span></td><td><button class="row-action" aria-label="Abrir incidente">→</button></td></tr></tbody></table></div></section>
+      <footer><span>Sentinel Security Platform · v0.1.0</span><span><i class="status-dot"></i> Todos los servicios operativos</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
