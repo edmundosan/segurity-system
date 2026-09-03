@@ -8,6 +8,13 @@ const assistantAccess = [
   { name: 'Daniel Pérez', machine: 'OFI-17', status: 'Autorizado', lastSeen: 'Hace 3 min', risk: 'Seguro' }
 ];
 
+const agentActivity = [
+  { name: 'Ana García', office: 'OFI-12', department: 'Finanzas', ingresos: [{ time: '08:42', detail: 'Inicio de sesión en equipo FIN-WS-024', status: 'Verificado' }, { time: '09:16', detail: 'Acceso a VPN corporativa', status: 'MFA validado' }], descargas: [{ time: '09:03', detail: 'Finanzas_Q4_2026.xlsx', status: 'Autorizada' }, { time: '09:21', detail: 'Presupuesto_2027.pdf', status: 'Autorizada' }], recibidos: [{ time: '08:51', detail: 'Cierre trimestral · Laura Méndez', status: 'Revisado' }, { time: '09:12', detail: 'Confirmación bancaria · Tesorería', status: 'Adjunto seguro' }], enviados: [{ time: '09:08', detail: 'Informe de liquidez · Dirección', status: 'Entregado' }, { time: '09:27', detail: 'Solicitud de firma · Legal', status: 'Entregado' }] },
+  { name: 'Sergio López', office: 'OFI-08', department: 'Operaciones', ingresos: [{ time: '08:37', detail: 'Inicio de sesión en equipo OPS-WS-008', status: 'Verificado' }, { time: '09:02', detail: 'Acceso al servidor de archivos', status: 'Autorizado' }], descargas: [{ time: '08:58', detail: 'Plan_Recuperación_Sistemas.docx', status: 'Revisada' }, { time: '09:14', detail: 'Inventario_activos.csv', status: 'Autorizada' }], recibidos: [{ time: '08:45', detail: 'Ventana de mantenimiento · Infraestructura', status: 'Revisado' }, { time: '09:19', detail: 'Alerta de respaldo · SOC', status: 'Prioritario' }], enviados: [{ time: '09:11', detail: 'Estado de parches · TI', status: 'Entregado' }, { time: '09:31', detail: 'Reporte de mantenimiento · Dirección', status: 'Entregado' }] },
+  { name: 'Marta Ruiz', office: 'OFI-04', department: 'Legal', ingresos: [{ time: '08:49', detail: 'Inicio de sesión en equipo LEG-WS-004', status: 'Verificado' }, { time: '09:06', detail: 'Consulta de contratos', status: 'Autorizado' }], descargas: [{ time: '09:06', detail: 'Contratos_Alpha_Cliente.pdf', status: 'Autorizada' }, { time: '09:24', detail: 'Anexo_proveedor.docx', status: 'Restringida' }], recibidos: [{ time: '08:55', detail: 'Revisión contractual · Cliente Alpha', status: 'Revisado' }, { time: '09:17', detail: 'Aviso de cumplimiento · SOC', status: 'Prioritario' }], enviados: [{ time: '09:09', detail: 'Observaciones de contrato · Dirección', status: 'Entregado' }, { time: '09:29', detail: 'Solicitud de documentación · Finanzas', status: 'Entregado' }] },
+  { name: 'Daniel Pérez', office: 'OFI-17', department: 'RRHH', ingresos: [{ time: '08:31', detail: 'Inicio de sesión en equipo HR-WS-017', status: 'Verificado' }, { time: '09:18', detail: 'Acceso a directorio de empleados', status: 'MFA validado' }], descargas: [{ time: '09:18', detail: 'RRHH_Empleados_Confidencial.csv', status: 'Autorizada' }, { time: '09:26', detail: 'Altas_octubre.xlsx', status: 'Autorizada' }], recibidos: [{ time: '08:59', detail: 'Nuevas incorporaciones · Dirección', status: 'Revisado' }, { time: '09:22', detail: 'Solicitud de acceso · Soporte', status: 'Revisado' }], enviados: [{ time: '09:20', detail: 'Listado de incorporaciones · Finanzas', status: 'Entregado' }, { time: '09:34', detail: 'Documentación de alta · Legal', status: 'Entregado' }] }
+];
+
 const patchBalance = [
   { name: 'Windows 11 24H2', completion: 96, status: 'Actualizado' },
   { name: 'Defender AV', completion: 88, status: 'Pendiente' },
@@ -86,6 +93,20 @@ const socAlerts = [
 ];
 
 let activeDepartmentFilter = 'Todos';
+let activeAgentView = 'ingresos';
+
+function renderAgentActivity() {
+  const select = document.querySelector('#agentSelect');
+  const summary = document.querySelector('#agentSummary');
+  const detail = document.querySelector('#agentDetail');
+  if (!select || !summary || !detail) return;
+  if (!select.options.length) select.innerHTML = agentActivity.map((agent, index) => `<option value="${index}">${agent.name} · ${agent.office}</option>`).join('');
+  const agent = agentActivity[Number(select.value) || 0];
+  const activity = agent[activeAgentView];
+  const labels = { ingresos: 'Ingresos registrados', descargas: 'Descargas realizadas', recibidos: 'Mensajes recibidos', enviados: 'Mensajes enviados' };
+  summary.innerHTML = `<div><span>Agente</span><strong>${agent.name}</strong><small>${agent.department} · ${agent.office}</small></div><div><span>Eventos hoy</span><strong>${activity.length}</strong><small>${labels[activeAgentView]}</small></div><div><span>Última actividad</span><strong>${activity[activity.length - 1].time}</strong><small>Hora local</small></div>`;
+  detail.innerHTML = `<div class="agent-detail-heading"><h3>${labels[activeAgentView]}</h3><span>Hoy · ${agent.office}</span></div>${activity.map((item) => `<div class="agent-event"><time>${item.time}</time><div><strong>${item.detail}</strong><small>${agent.name} · ${agent.department}</small></div><em>${item.status}</em></div>`).join('')}`;
+}
 
 function downloadReport(area) {
   const reports = {
@@ -402,6 +423,14 @@ document.querySelectorAll('.row-action').forEach((button) => {
 document.querySelectorAll('[data-report]').forEach((button) => {
   button.addEventListener('click', () => downloadReport(button.dataset.report));
 });
+document.querySelector('#agentSelect').addEventListener('change', renderAgentActivity);
+document.querySelectorAll('.agent-tab').forEach((tab) => {
+  tab.addEventListener('click', () => {
+    activeAgentView = tab.dataset.agentView;
+    document.querySelectorAll('.agent-tab').forEach((button) => button.classList.toggle('active', button === tab));
+    renderAgentActivity();
+  });
+});
 
 document.addEventListener('click', (event) => {
   const denyButton = event.target.closest('.deny-access');
@@ -430,6 +459,7 @@ document.addEventListener('click', (event) => {
 renderAssistantAccess();
 renderPatchBalance();
 renderNetworkUsage();
+renderAgentActivity();
 renderThreatStudy();
 renderConfidentialFiles();
 renderRolePermissions();

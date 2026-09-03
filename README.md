@@ -10,7 +10,7 @@ No requiere dependencias ni backend para la demo. Desde la raiz del proyecto:
 python3 server.py
 ```
 
-Abre `http://localhost:4173` en el navegador. El servidor incluye fallback para rutas directas del panel, evitando errores 404 al recargar una URL. Los datos actuales son de demostracion y no representan telemetria real.
+Abre `http://localhost:4173` en el navegador. El servidor incluye fallback para rutas directas del panel, evitando errores 404 al recargar una URL, y admite otro puerto con `PORT=4174 python3 server.py`. Los datos actuales son de demostracion y no representan telemetria real.
 
 ## Alcance defensivo
 
