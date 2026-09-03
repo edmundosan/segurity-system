@@ -55,6 +55,22 @@
         </div>
       </section>
 
+      <section class="panel agent-activity-panel" id="agentActivity">
+        <div class="panel-heading"><div><h2>Actividad de agentes</h2><p>Ingresos, descargas y accesos registrados por agente</p></div><button class="text-button" data-report="agentes">Descargar auditoría <span>↓</span></button></div>
+        <div class="agent-toolbar">
+          <label for="agentSelect">Agente</label>
+          <select id="agentSelect" aria-label="Seleccionar agente"></select>
+          <div class="agent-tabs" role="tablist" aria-label="Tipo de actividad">
+            <button class="agent-tab active" data-agent-view="ingresos">Ingresos</button>
+            <button class="agent-tab" data-agent-view="descargas">Descargas</button>
+            <button class="agent-tab" data-agent-view="recibidos">Recibidos</button>
+            <button class="agent-tab" data-agent-view="enviados">Enviados</button>
+          </div>
+        </div>
+        <div id="agentSummary" class="agent-summary"></div>
+        <div id="agentDetail" class="agent-detail"></div>
+      </section>
+
       <section class="panel reports-panel" id="reports">
         <div class="panel-heading"><div><h2>Informes diarios</h2><p>Descargas separadas por área operativa</p></div><span class="report-date">08 OCT 2024 · DEMO</span></div>
         <div class="report-grid">
@@ -99,7 +115,7 @@
       </section>
 
       <section class="panel security-policy-panel" id="policies">
-        <div class="panel-heading"><div><h2>Permisos por rol y auditoría</h2><p>Control de acceso, intentos y eventos en tiempo real</p></div><button class="text-button" id="viewAuditLog">Ver auditoría <span>→</span></button></div>
+        <div class="panel-heading"><div><h2>Permisos por rol y auditoría</h2><p>Control de acceso, intentos y eventos en tiempo real</p></div><button class="text-button view-audit-log">Ver auditoría <span>→</span></button></div>
         <div class="security-policy-grid">
           <div class="security-card">
             <h3>Perfiles de acceso</h3>
@@ -117,7 +133,7 @@
       </section>
 
       <section class="panel soc-panel">
-        <div class="panel-heading"><div><h2>Control de acceso y SOC</h2><p>Filtros por departamento, historial y alertas a tiempo real</p></div><button class="text-button" id="viewAuditLog">Ver auditoría <span>→</span></button></div>
+        <div class="panel-heading"><div><h2>Control de acceso y SOC</h2><p>Filtros por departamento, historial y alertas a tiempo real</p></div><button class="text-button view-audit-log">Ver auditoría <span>→</span></button></div>
         <div class="soc-layout">
           <div class="soc-card">
             <div class="filter-row" id="departmentFilterBar">

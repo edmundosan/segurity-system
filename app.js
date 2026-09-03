@@ -113,6 +113,7 @@ function downloadReport(area) {
     diario: 'Informe diario de seguridad\n\nPostura: 87/100\nDispositivos protegidos: 142/148\nAlertas abiertas: 07\nTiempo medio de respuesta: 18 min',
     amenazas: 'Informe de amenazas e incidentes\n\nEventos de las últimas 24 horas: 24\nCríticos: 2\nAltos: 5\nMedios: 11\nBajos: 6\n\nRespuesta: ransomware bloqueado y gusano neutralizado.',
     activos: `Informe de activos y actualizaciones\n\nDispositivos protegidos: 142/148\n${patchBalance.map((entry) => `${entry.name}: ${entry.completion}% - ${entry.status}`).join('\n')}`,
+    agentes: `Auditoría diaria de agentes\n\n${agentActivity.map((agent) => `${agent.name} (${agent.department} · ${agent.office})\nIngresos:\n${agent.ingresos.map((item) => `  ${item.time} - ${item.detail} - ${item.status}`).join('\n')}\nDescargas:\n${agent.descargas.map((item) => `  ${item.time} - ${item.detail} - ${item.status}`).join('\n')}`).join('\n\n')}`,
     red: `Informe de accesos y red\n\nEquipos activos: ${document.querySelector('#liveAccessTotal').textContent}\nTráfico medio: ${document.querySelector('#liveNetworkTotal').textContent} Gb/s\n\n${assistantAccess.map((entry) => `${entry.name} (${entry.machine}): ${entry.status} - ${entry.risk}`).join('\n')}\n\n${networkUsage.map((entry) => `${entry.name}: ${entry.traffic} - ${entry.risk}`).join('\n')}`,
     operaciones: `Informe operativo\n\nAccesos actuales: ${document.querySelector('#liveAccessTotal').textContent}\nParches pendientes: ${document.querySelector('#livePatchTotal').textContent}\nTráfico de red: ${document.querySelector('#liveNetworkTotal').textContent} Gb/s`
   };
@@ -388,9 +389,11 @@ document.querySelector('#viewDefensePlan').addEventListener('click', () => {
   showToast('Plan de defensa reforzado en revisión');
 });
 
-document.querySelector('#viewAuditLog').addEventListener('click', () => {
-  document.querySelector('.security-policy-panel').scrollIntoView({ behavior: 'smooth' });
-  showToast('Auditoría de seguridad abierta');
+document.querySelectorAll('.view-audit-log').forEach((button) => {
+  button.addEventListener('click', () => {
+    document.querySelector('.security-policy-panel').scrollIntoView({ behavior: 'smooth' });
+    showToast('Auditoría de seguridad abierta');
+  });
 });
 
 document.querySelectorAll('.filter-chip').forEach((chip) => {
@@ -423,7 +426,7 @@ document.querySelectorAll('.row-action').forEach((button) => {
 document.querySelectorAll('[data-report]').forEach((button) => {
   button.addEventListener('click', () => downloadReport(button.dataset.report));
 });
-document.querySelector('#agentSelect').addEventListener('change', renderAgentActivity);
+document.querySelector('#agentSelect')?.addEventListener('change', renderAgentActivity);
 document.querySelectorAll('.agent-tab').forEach((tab) => {
   tab.addEventListener('click', () => {
     activeAgentView = tab.dataset.agentView;
