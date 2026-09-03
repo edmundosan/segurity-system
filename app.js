@@ -22,6 +22,13 @@ const patchBalance = [
   { name: 'Office 365', completion: 74, status: 'Pendiente' }
 ];
 
+const agentTelemetry = [
+  { threat: 'Sin amenaza activa', explanation: 'Las sesiones y los archivos del agente están dentro de las políticas esperadas.', severity: 'Bajo', lastDetected: 'Sin alertas', segment: 'FINANZAS-VLAN', traffic: 184, network: 'Estable', contained: true },
+  { threat: 'Escaneo lateral detectado', explanation: 'Se observó una consulta de puertos fuera del patrón habitual en el equipo de operaciones.', severity: 'Medio', lastDetected: 'Hace 6 min', segment: 'OPS-VLAN', traffic: 327, network: 'Vigilado', contained: true },
+  { threat: 'Descarga restringida', explanation: 'Un archivo contractual fue solicitado sin permiso suficiente y la política lo bloqueó.', severity: 'Alto', lastDetected: 'Hace 2 min', segment: 'LEGAL-VLAN', traffic: 246, network: 'Restringido', contained: true },
+  { threat: 'Sin amenaza activa', explanation: 'El acceso al directorio de empleados requiere MFA y se mantiene conforme.', severity: 'Bajo', lastDetected: 'Sin alertas', segment: 'RRHH-VLAN', traffic: 139, network: 'Estable', contained: true }
+];
+
 const networkUsage = [
   { name: 'Red de oficinas', traffic: '412 MB/s', risk: 'Estable' },
   { name: 'VPN ejecutiva', traffic: '188 MB/s', risk: 'Bajo' },
@@ -106,6 +113,22 @@ function renderAgentActivity() {
   const labels = { ingresos: 'Ingresos registrados', descargas: 'Descargas realizadas', recibidos: 'Mensajes recibidos', enviados: 'Mensajes enviados' };
   summary.innerHTML = `<div><span>Agente</span><strong>${agent.name}</strong><small>${agent.department} · ${agent.office}</small></div><div><span>Eventos hoy</span><strong>${activity.length}</strong><small>${labels[activeAgentView]}</small></div><div><span>Última actividad</span><strong>${activity[activity.length - 1].time}</strong><small>Hora local</small></div>`;
   detail.innerHTML = `<div class="agent-detail-heading"><h3>${labels[activeAgentView]}</h3><span>Hoy · ${agent.office}</span></div>${activity.map((item) => `<div class="agent-event"><time>${item.time}</time><div><strong>${item.detail}</strong><small>${agent.name} · ${agent.department}</small></div><em>${item.status}</em></div>`).join('')}`;
+}
+
+function renderAgentThreats() {
+  const grid = document.querySelector('#agentThreatGrid');
+  if (!grid) return;
+
+  grid.innerHTML = agentActivity.map((agent, index) => {
+    const telemetry = agentTelemetry[index];
+    return `<article class="agent-threat-card ${telemetry.severity === 'Alto' ? 'threat-high' : telemetry.severity === 'Medio' ? 'threat-medium' : ''}">
+      <div class="agent-threat-head"><div><strong>${agent.name}</strong><span>${agent.department} · ${agent.office}</span></div><em>${telemetry.severity}</em></div>
+      <h3>${telemetry.threat}</h3>
+      <p>${telemetry.explanation}</p>
+      <div class="agent-threat-meta"><span><b>Última detección</b>${telemetry.lastDetected}</span><span><b>Red</b>${telemetry.segment}</span><span><b>Tráfico</b>${telemetry.traffic} MB/s</span></div>
+      <div class="containment-status"><i></i>${telemetry.contained ? 'Contención activa' : 'Requiere atención'} · ${telemetry.network}</div>
+    </article>`;
+  }).join('');
 }
 
 function downloadReport(area) {
@@ -331,6 +354,11 @@ function updateLiveMetrics() {
   randomNetwork.risk = randomNetwork.traffic.includes('600') ? 'Elevado' : (Math.random() > 0.7 ? 'Bajo' : 'Estable');
   renderNetworkUsage();
 
+  const randomTelemetry = agentTelemetry[Math.floor(Math.random() * agentTelemetry.length)];
+  randomTelemetry.traffic = Math.max(80, Math.min(680, randomTelemetry.traffic + (Math.random() > 0.5 ? 12 : -12)));
+  randomTelemetry.lastDetected = randomTelemetry.severity === 'Bajo' ? 'Sin alertas' : `Hace ${Math.floor(Math.random() * 9) + 1} min`;
+  renderAgentThreats();
+
   const eventTemplates = [
     { label: 'Intento de acceso bloqueado por política', severity: 'warn' },
     { label: 'Sesión de gestión verificada correctamente', severity: 'ok' },
@@ -463,6 +491,7 @@ renderAssistantAccess();
 renderPatchBalance();
 renderNetworkUsage();
 renderAgentActivity();
+renderAgentThreats();
 renderThreatStudy();
 renderConfidentialFiles();
 renderRolePermissions();
